@@ -1,6 +1,7 @@
 
 from pydantic import Field
 from pydantic_settings import BaseSettings
+from typing import Optional
 
 from dotenv import load_dotenv
 load_dotenv(".env")
@@ -22,6 +23,8 @@ class Settings(BaseSettings):
     stderr_path: str = Field(min_length=1)
     compute_resource_id: str = Field(min_length=1)
 
+    # Job list
+    filters: Optional[dict] = None
 
     class SettingsConfigDict:
         env_file = ".env"
@@ -41,6 +44,7 @@ COMPUTE_ALLOCATION = settings.compute_allocation
 STDOUT_PATH = settings.stdout_path
 STDERR_PATH = settings.stderr_path
 COMPUTE_RESOURCE_ID = settings.compute_resource_id
+FILTERS = settings.filters
 
 # Headers for authenticated requests
 HEADERS = {
