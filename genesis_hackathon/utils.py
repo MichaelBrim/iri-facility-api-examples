@@ -29,7 +29,7 @@ def get_filesystem_id_from_path(
             print("File must be on /home/, /eagle/, or /lus/eagle/.")
             sys.exit(1)
 
-    # NERS
+    # NERSC
     if "nersc.gov" in base_url:
         if file_path.startswith("/global/u1"):
             return "65b28619-c3b6-4942-8da1-044a3b3a2a9e"
