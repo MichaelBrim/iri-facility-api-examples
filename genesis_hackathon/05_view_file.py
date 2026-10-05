@@ -61,7 +61,7 @@ if __name__ == "__main__":
         # Query task status every 2 seconds
         sleep(2)
         response = requests.get(
-            f"https://api.alcf.anl.gov/api/v1/task/{task_id}",
+            f"{BASE_URL}/task/{task_id}",
             headers=HEADERS
         )
         response = response.json()
@@ -76,8 +76,5 @@ if __name__ == "__main__":
             break
 
     # Print error or file content
-    if task_status == "failed":
-        print(json.dumps(response["result"], indent=2))
-    else:
-        print(response["result"]["output"]["content"])
+    print(json.dumps(response["result"], indent=2))
     
