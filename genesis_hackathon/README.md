@@ -46,46 +46,18 @@ IRI_API_TOKEN=""
 ```
 
 
-## 2. Authentication
+## 2. Get Your IRI Token
 
-### ALCF (with Globus Auth)
+- ALCF
+  - v1: [https://docs.alcf.anl.gov/services/iri-api/#getting-your-api-token](https://docs.alcf.anl.gov/services/iri-api/#getting-your-api-token)
+- NERSC
+  - v1: [https://github.com/NERSC/iri-api-get-globus-token](https://github.com/NERSC/iri-api-get-globus-token)
+  - v2: [https://docs.nersc.gov/services/sfapi/authentication/](https://docs.nersc.gov/services/sfapi/authentication/)
+- ESnet:
+  - ...
+- OLCF
+  - ...
 
-Install the ALCF token manager package:
-```bash
-pip install alcf-tokens
-```
-
-Authenticate **with your ALCF credentials**:
-```bash
-alcf-tokens login iri
-```
-The above command will print a URL that you must copy-paste to your browser. Follow the authentication flow, and copy-paste the resulting authorization code back to your terminal.
-
-Test your ALCF IRI access token:
-```bash
-alcf-tokens test-token iri
-```
-If your token is valid and ready to use with the IRI API, you should see:
-```json
-{
-    "ready": true, 
-    "error": null
-}
-```
-
-If you get an error, logout from Globus by visiting [https://app.globus.org/logout](https://app.globus.org/logout), open a new **incognito browser**, and restart the login command.
-
-### NERSC 
-
-... in construction ...
-
-### OLCF
-
-... in construction ...
-
-# ESnet
-
-... in construction ...
 
 ## 3. Main Exercises
 
