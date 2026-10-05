@@ -10,7 +10,7 @@ pip install -r requirements.txt
 ```
 
 Create a `.env` file and add your configuration
-```python
+```bash
 # ----------------------------------
 # ------ API URL (choose one) ------
 # ----------------------------------
@@ -39,6 +39,12 @@ STDOUT_PATH=""
 STDERR_PATH=""
 COMPUTE_RESOURCE_ID=""
 ```
+
+Create a `.env.secret` file to store your IRI API token:
+```bash
+IRI_API_TOKEN=""
+```
+
 
 ## 2. Authentication
 
