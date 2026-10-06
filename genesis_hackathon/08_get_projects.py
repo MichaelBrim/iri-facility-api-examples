@@ -7,15 +7,16 @@ import argparse
 import json
 import requests
 
-from config import BASE_URL, HEADERS
+from models import Config, Facilities
+from utils import get_config, get_headers
 
 
-def get_projects(project_name=None):
+def get_projects(config: Config, project_name: str = None):
 
     # Query all projects
     response = requests.get(
-        f"{BASE_URL}/account/projects",
-        headers=HEADERS,
+        f"{config.base_url}/account/projects",
+        headers=get_headers(config.token),
     )
     projects = response.json()
 
@@ -28,9 +29,19 @@ def get_projects(project_name=None):
 
 if __name__ == "__main__":
 
-    # Parse optional project_name argument
+    # Parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("project_name", nargs="?", help="Project name")
+    parser.add_argument(
+        "project_name", 
+        nargs="?", 
+        help="Project name"
+    )
+    parser.add_argument(
+        "--facility",
+        required=True,
+        choices=Facilities,
+        help="Facility to query",
+    )
     args = parser.parse_args()
 
-    print(get_projects(args.project_name))
+    print(get_projects(get_config(args.facility), args.project_name))

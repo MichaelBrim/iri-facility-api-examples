@@ -7,13 +7,14 @@ import argparse
 import json
 import requests
 
-from config import BASE_URL
+from models import Config, Facilities
+from utils import get_config
 
 
-def get_resources(resource_name=None):
+def get_resources(config: Config, resource_name: str = None):
 
     # Query the status of all resources
-    response = requests.get(f"{BASE_URL}/status/resources")
+    response = requests.get(f"{config.base_url}/status/resources")
     resources = response.json()
 
     # Filter to extract a resource based on its name
@@ -25,9 +26,19 @@ def get_resources(resource_name=None):
 
 if __name__ == "__main__":
 
-    # Parse optional resource_name argument
+    # Parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("resource_name", nargs="?", help="Resource name")
+    parser.add_argument(
+        "resource_name",
+        nargs="?",
+        help="Resource name",
+    )
+    parser.add_argument(
+        "--facility",
+        required=True,
+        choices=Facilities,
+        help="Facility to query",
+    )
     args = parser.parse_args()
 
-    print(get_resources(args.resource_name))
+    print(get_resources(get_config(args.facility), resource_name=args.resource_name))

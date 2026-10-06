@@ -8,41 +8,38 @@ import json
 import requests
 from time import sleep
 
-from config import BASE_URL, HEADERS
-from utils import get_filesystem_id_from_path
+from models import Config, Facilities
+from utils import get_config, get_headers
 
 
 # Submit filesystem operation and get back a task ID
-def submit_view_file(file_path: str) -> str:
-
-    # Isolate targetted filesystem
-    resource_id = get_filesystem_id_from_path(BASE_URL, file_path)
+def submit_view_file(config: Config, file_path: str) -> str:
 
     # Submit view command
     print("\n=========================")
     print("SUBMIT FILESYSTEM COMMAND")
     print("=========================\n")
-    print(f"Submitting filesystem view command to {resource_id} ...")
-    
-    if "api/v1" in BASE_URL:
+    print(f"Submitting filesystem view command to {config.filesystem_resource_id} ...")
+
+    if "api/v1" in config.base_url:
         response = requests.get(
-            f"{BASE_URL}/filesystem/view/{resource_id}",
+            f"{config.base_url}/filesystem/view/{config.filesystem_resource_id}",
             params={
                 "path": file_path,
                 "size": 1000,
                 "offset": 0
             },
-            headers=HEADERS
+            headers=get_headers(config.token)
         )
     else:
         response = requests.post(
-            f"{BASE_URL}/filesystem/view/{resource_id}",
+            f"{config.base_url}/filesystem/view/{config.filesystem_resource_id}",
             json={
                 "path": file_path,
                 "size": 1000,
                 "offset": 0
             },
-            headers=HEADERS
+            headers=get_headers(config.token)
         )
 
     # Print task status
@@ -55,13 +52,25 @@ def submit_view_file(file_path: str) -> str:
 
 if __name__ == "__main__":
 
-    # Parse mandatory file_path argument
+    # Parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("file_path", help="Absolute path of the file")
+    parser.add_argument(
+        "file_path",
+        help="Absolute path of the file"
+    )
+    parser.add_argument(
+        "--facility",
+        required=True,
+        choices=Facilities,
+        help="Facility to query",
+    )
     args = parser.parse_args()
 
+    # Load config
+    config = get_config(args.facility)
+
     # Submit filesytem operation and get back a task ID
-    task_id = submit_view_file(args.file_path)
+    task_id = submit_view_file(config, args.file_path)
 
     print("\n==============")
     print("EXTRACT RESULT")
@@ -73,8 +82,8 @@ if __name__ == "__main__":
         # Query task status every 2 seconds
         sleep(2)
         response = requests.get(
-            f"{BASE_URL}/task/{task_id}",
-            headers=HEADERS
+            f"{config.base_url}/task/{task_id}",
+            headers=get_headers(config.token)
         )
         response = response.json()
 

@@ -7,20 +7,30 @@ import argparse
 import json
 import requests
 
-from config import BASE_URL
+from models import Config, Facilities
+from utils import get_config, get_headers
 
 
 # Query the status of a specific resource
-def get_resource(resource_id):
-    response = requests.get(f"{BASE_URL}/status/resources/{resource_id}")
+def get_resource(config: Config, resource_id):
+    response = requests.get(f"{config.base_url}/status/resources/{resource_id}")
     return json.dumps(response.json(), indent=2)
 
 
 if __name__ == "__main__":
 
-    # Parse mandatory resource_id argument
+    # Parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("resource_id", help="Resource ID")
+    parser.add_argument(
+        "resource_id",
+        help="Resource ID"
+    )
+    parser.add_argument(
+        "--facility",
+        required=True,
+        choices=Facilities,
+        help="Facility to query",
+    )
     args = parser.parse_args()
 
-    print(get_resource(args.resource_id))
+    print(get_resource(get_config(args.facility), args.resource_id))

@@ -7,23 +7,33 @@ import argparse
 import json
 import requests
 
-from config import BASE_URL, HEADERS
+from models import Config, Facilities
+from utils import get_config, get_headers
 
 
 # Query a specific project
-def get_allocations(project_id):
+def get_allocations(config: Config, project_id: str):
     response = requests.get(
-        f"{BASE_URL}/account/projects/{project_id}/project_allocations",
-        headers=HEADERS,
+        f"{config.base_url}/account/projects/{project_id}/project_allocations",
+        headers=get_headers(config.token),
     )
     return json.dumps(response.json(), indent=2)
 
 
 if __name__ == "__main__":
 
-    # Parse mandatory project_id argument
+    # Parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("project_id", help="Project ID")
+    parser.add_argument(
+        "project_id",
+        help="Project ID"
+    )
+    parser.add_argument(
+        "--facility",
+        required=True,
+        choices=Facilities,
+        help="Facility to query",
+    )
     args = parser.parse_args()
 
-    print(get_allocations(args.project_id))
+    print(get_allocations(get_config(args.facility), args.project_id))

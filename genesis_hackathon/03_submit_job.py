@@ -2,54 +2,51 @@
 Submit a job to a compute resource and get the job ID back.
 """
 
+import argparse
 import json
 import requests
 
-from config import (
-    HEADERS,
-    BASE_URL,
-    NODES,
-    WALLTIME_SEC,
-    QUEUE,
-    COMPUTE_ALLOCATION,
-    STDOUT_PATH,
-    STDERR_PATH,
-    COMPUTE_RESOURCE_ID,
-)
-from utils import get_custom_attributes
-
-
-# Define commands to be executed
-COMMANDS="""
-echo Start
-sleep 5
-whoami
-hostname
-echo End
-"""
+from models import Config, Facilities
+from utils import get_config, get_headers
 
 
 # Submit job to compute resource
-response = requests.post(
-    f"{BASE_URL}/compute/job/{COMPUTE_RESOURCE_ID}",
-    json={
-        "executable": "/bin/bash",
-        "arguments": ["-lc", COMMANDS],
-        "name": "my-job",
-        "stdout_path": STDOUT_PATH,
-        "stderr_path": STDERR_PATH,
-        "resources": {
-            "node_count": NODES
+def submit_job(config: Config):
+    response = requests.post(
+        f"{config.base_url}/compute/job/{config.compute_resource_id}",
+        json={
+            "executable": "/bin/bash",
+            "arguments": ["-lc", config.commands],
+            "name": "my-job",
+            "stdout_path": config.stdout_path,
+            "stderr_path": config.stderr_path,
+            "resources": {
+                "node_count": config.nodes
+            },
+            "attributes": {
+                "duration": config.walltime_sec,
+                "queue_name": config.queue,
+                "account": config.compute_allocation,
+                "custom_attributes": config.custom_attributes,
+            }
         },
-        "attributes": {
-            "duration": WALLTIME_SEC,
-            "queue_name": QUEUE,
-            "account": COMPUTE_ALLOCATION,
-            "custom_attributes": get_custom_attributes(COMPUTE_RESOURCE_ID)
-        }
-    },
-    headers=HEADERS
-)
+        headers=get_headers(config.token)
+    )
 
-# Print job submission details with the job ID (or error if any) 
-print(json.dumps(response.json(), indent=2))
+    # Return job submission details with the job ID (or error if any) 
+    return json.dumps(response.json(), indent=2)
+
+
+if __name__ == "__main__":
+
+    # Parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--facility",
+        required=True,
+        choices=Facilities,
+        help="Facility to query",
+    )
+    args = parser.parse_args()
+
+    print(submit_job(get_config(args.facility)))

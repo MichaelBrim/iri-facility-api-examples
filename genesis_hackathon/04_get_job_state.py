@@ -7,27 +7,33 @@ import argparse
 import json
 import requests
 
-from config import BASE_URL, HEADERS, COMPUTE_RESOURCE_ID
-
-# Select compute cluster
-#RESOURCE_ID="8b9b42f7-572a-4909-8472-a0453436304c" # Crux
-RESOURCE_ID="55c1c993-1124-47f9-b823-514ba3849a9a" # Polaris
+from models import Config, Facilities
+from utils import get_config, get_headers
 
 
 # Query the state of a specific PBS job
-def get_job(job_id):
+def get_job(config: Config, job_id: str):
     response = requests.get(
-        f"{BASE_URL}/compute/status/{COMPUTE_RESOURCE_ID}/{job_id}",
-        headers=HEADERS,
+        f"{config.base_url}/compute/status/{config.compute_resource_id}/{job_id}",
+        headers=get_headers(config.token),
     )
     return json.dumps(response.json(), indent=2)
 
 
 if __name__ == "__main__":
 
-    # Parse mandatory job_id argument
+    # Parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("job_id", help="Job ID")
+    parser.add_argument(
+        "job_id",
+        help="Job ID"
+    )
+    parser.add_argument(
+            "--facility",
+            required=True,
+            choices=Facilities,
+            help="Facility to query",
+        )
     args = parser.parse_args()
 
-    print(get_job(args.job_id))
+    print(get_job(get_config(args.facility), args.job_id))
