@@ -7,6 +7,7 @@ class Facilities(str, Enum):
     alcf = "alcf"
     nersc = "nersc"
     esnet = "esnet"
+    olcf = "olcf"
     
 
 class Config(BaseModel):
