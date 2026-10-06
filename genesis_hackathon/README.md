@@ -22,6 +22,20 @@ Make sure you edit the `config_<facility>.py` files to set your exercises.
 
 ## 2. Get Your IRI Token
 
+### ALCF
+
+Install the ALCF token manager package and authenticate with Globus Auth:
+```bash
+pip install alcf-tokens
+alcf-tokens login iri
+```
+
+Print your IRI API token:
+```bash
+alcf-tokens get-token iri
+```
+
+### Documentation
 - ALCF
   - v1: [https://docs.alcf.anl.gov/services/iri-api/#getting-your-api-token](https://docs.alcf.anl.gov/services/iri-api/#getting-your-api-token)
 - NERSC
