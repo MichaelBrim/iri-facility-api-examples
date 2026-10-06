@@ -1,6 +1,7 @@
 import sys
 import config_alcf
 import config_nersc
+import config_esnet
 
 from models import Config
 
@@ -14,6 +15,8 @@ def get_config(facility: str) -> Config:
         return config_alcf.config
     elif facility.lower() == "nersc":
         return config_nersc.config
+    elif facility.lower() == "esnet":
+        return config_esnet.config
     else:
         print(f"Facility {facility} not supported yet.")
         sys.exit(1)
