@@ -1,4 +1,5 @@
 import os
+import sys
 from models import Config
 from dotenv import load_dotenv
 load_dotenv()
@@ -6,6 +7,9 @@ load_dotenv()
 # API access
 BASE_URL = "https://api.alcf.anl.gov/api/v1"
 TOKEN = os.environ.get("IRI_TOKEN_ALCF")
+if TOKEN is None:
+    print("IRI_TOKEN_ALCF missing in .env file.")
+    sys.exit(1)
 
 # Job submission resources
 COMPUTE_RESOURCE_ID = "55c1c993-1124-47f9-b823-514ba3849a9a" # Polaris
