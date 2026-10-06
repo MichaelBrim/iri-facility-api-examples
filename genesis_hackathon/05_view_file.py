@@ -23,15 +23,27 @@ def submit_view_file(file_path: str) -> str:
     print("SUBMIT FILESYSTEM COMMAND")
     print("=========================\n")
     print(f"Submitting filesystem view command to {resource_id} ...")
-    response = requests.get(
-        f"{BASE_URL}/filesystem/view/{resource_id}",
-        params={
-            "path": file_path,
-            "size": 1000,
-            "offset": 0
-        },
-        headers=HEADERS
-    )
+    
+    if "api/v1" in BASE_URL:
+        response = requests.get(
+            f"{BASE_URL}/filesystem/view/{resource_id}",
+            params={
+                "path": file_path,
+                "size": 1000,
+                "offset": 0
+            },
+            headers=HEADERS
+        )
+    else:
+        response = requests.post(
+            f"{BASE_URL}/filesystem/view/{resource_id}",
+            json={
+                "path": file_path,
+                "size": 1000,
+                "offset": 0
+            },
+            headers=HEADERS
+        )
 
     # Print task status
     response = response.json()
