@@ -13,7 +13,7 @@ Create a `.env` file to store your IRI tokens:
 ```bash
 IRI_TOKEN_ALCF=""
 IRI_TOKEN_NERSC=""
-IRI_TOKEN_ESNET=""
+AMSC_TOKEN=""  # ESnet; or set AMSC_TOKEN_FILE (default /tmp/amsc-token.txt)
 IRI_TOKEN_OLCF=""
 ```
 
@@ -27,8 +27,9 @@ Make sure you edit the `config_<facility>.py` files to set your exercises.
 - NERSC
   - v1: [https://github.com/NERSC/iri-api-get-globus-token](https://github.com/NERSC/iri-api-get-globus-token)
   - v2: [https://docs.nersc.gov/services/sfapi/authentication/](https://docs.nersc.gov/services/sfapi/authentication/)
-- ESnet:
-  - ...
+- ESnet (Use v2 for quick access):
+  - v1: (SLOW) Globus token. [https://github.com/doe-iri/iri-facility-api-examples/blob/main/login-globus.ipynb]. Send an email to jbalcas@es.net with introspection
+  - v2: (FAST) AmSC token (PAT) from MyAmSC for the `hackathon2610` project, see `../login-amsc.ipynb`. ESnet accepts AmSC tokens on `api/v2` only.
 - OLCF
   - ...
 
