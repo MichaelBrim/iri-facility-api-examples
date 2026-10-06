@@ -6,6 +6,7 @@ from typing import Optional
 class Facilities(str, Enum):
     alcf = "alcf"
     nersc = "nersc"
+    esnet = "esnet"
     
 
 class Config(BaseModel):
