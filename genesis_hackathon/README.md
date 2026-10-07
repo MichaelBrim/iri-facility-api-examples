@@ -14,7 +14,8 @@ Create a `.env` file to store your IRI tokens:
 IRI_TOKEN_ALCF=""
 IRI_TOKEN_NERSC=""
 AMSC_TOKEN=""  # ESnet; or set AMSC_TOKEN_FILE (default /tmp/amsc-token.txt)
-IRI_TOKEN_OLCF=""
+IRI_TOKEN_OLCF="" # OLCF S3M token
+OLCF_S3M_PROJECT="" # OLCF only, set to project id (e.g., abc123) used to create S3M token
 ```
 
 Make sure you edit the `config_<facility>.py` files to set your exercises.
