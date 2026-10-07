@@ -45,7 +45,7 @@ alcf-tokens get-token iri
   - v1: (SLOW) Globus token. [https://github.com/doe-iri/iri-facility-api-examples/blob/main/login-globus.ipynb]. Send an email to jbalcas@es.net with introspection
   - v2: (FAST) AmSC token (PAT) from MyAmSC for the `hackathon2610` project, see `../login-amsc.ipynb`. ESnet accepts AmSC tokens on `api/v2` only.
 - OLCF
-  - ...
+  - v2: [https://docs.olcf.ornl.gov/services_and_applications/s3m/overview.html#get-a-token](https://docs.olcf.ornl.gov/services_and_applications/s3m/overview.html#get-a-token)
 
 
 ## 3. Main Exercises

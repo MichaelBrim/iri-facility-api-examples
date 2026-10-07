@@ -18,6 +18,7 @@ def submit_job(config: Config):
             "executable": "/bin/bash",
             "arguments": ["-lc", config.commands],
             "name": "my-job",
+            "directory": config.working_directory,
             "stdout_path": config.stdout_path,
             "stderr_path": config.stderr_path,
             "resources": {
