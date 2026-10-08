@@ -27,8 +27,8 @@ WALLTIME_SEC=300
 QUEUE="batch"
 COMPUTE_ALLOCATION=OLCF_PROJECT
 WORKING_DIR=f"/gpfs/wolf2/olcf/{OLCF_PROJECT}/proj-shared"
-STDOUT_PATH=f"iri_test.out"
-STDERR_PATH=f"iri_test.err"
+STDOUT_PATH="iri_test.out"
+STDERR_PATH="iri_test.err"
 
 # Commands to be executed in the job
 COMMANDS="""

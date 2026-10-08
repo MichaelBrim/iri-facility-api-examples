@@ -16,7 +16,6 @@ def submit_job(config: Config):
         "executable": "/bin/bash",
         "arguments": ["-lc", config.commands],
         "name": "my-job",
-        "directory": config.working_directory,
         "stdout_path": config.stdout_path,
         "stderr_path": config.stderr_path,
         "resources": {
@@ -29,6 +28,8 @@ def submit_job(config: Config):
             "custom_attributes": config.custom_attributes,
         }
     }
+    if config.working_directory:
+        payload["directory"] = config.working_directory
     
     response = requests.post(
         f"{config.base_url}/compute/job/{config.compute_resource_id}",
