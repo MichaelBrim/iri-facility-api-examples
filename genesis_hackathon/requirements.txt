@@ -1,4 +1,2 @@
 python-dotenv
-pydantic-settings
 requests
-globus-sdk
