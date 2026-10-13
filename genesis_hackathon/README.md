@@ -145,12 +145,12 @@ Once your job is `completed` or `failed`, continue to the next section.
 
 ### 3.c. View Job Results
 
-You can view the result of your jobs with Filesystem operations. If your PBS job completed, execute the following:
+You can view the result of your jobs with Filesystem operations. If your job completed, execute the following:
 ```bash
 python 05_view_file.py <absolute-path-to-stdout-file> --facility <select-facility-here>
 ```
 
-If your PBS job failed, execute the following:
+If your job failed, execute the following:
 ```bash
 python 05_view_file.py <absolute-path-to-stderr-file> --facility <select-facility-here>
 ```
