@@ -13,6 +13,7 @@ Create a `.env` file to store your IRI tokens:
 ```bash
 IRI_TOKEN_ALCF=""
 IRI_TOKEN_NERSC=""
+NERSC_USERNAME="" # NERSC account username; home is /global/homes/<first-letter>/<username>
 AMSC_TOKEN=""  # ESnet; or set AMSC_TOKEN_FILE (default /tmp/amsc-token.txt)
 IRI_TOKEN_OLCF="" # OLCF S3M token
 OLCF_S3M_PROJECT="" # OLCF only, set to project id (e.g., abc123) used to create S3M token
@@ -56,6 +57,18 @@ nersc-tokens get-token iri
 ```
 
 Add your token in the IRI_TOKEN_NERSC variable in the `.env` file.
+
+Set `NERSC_USERNAME` in the environment or `.env` file, or directly in `config_nersc.py`,
+to your NERSC account username. A nonempty environment value takes precedence over
+the value in the config file. If neither is set, the config prints an error and exits.
+
+The NERSC configuration derives your home directory as
+`/global/homes/<first-letter>/<username>` and writes `iri_test_<UTC-timestamp>.out`
+and `iri_test_<UTC-timestamp>.err` there. Each run uses a shared UTC timestamp with
+microseconds for the log pair to avoid overwriting previous runs. Jobs use the
+`regular` queue and the `m5249` compute allocation.
+Set `custom_attributes["reservation_id"]` in `config_nersc.py` to the reservation for
+your session; available reservation IDs and time windows are listed in its comments.
 
 ### OLCF
 
