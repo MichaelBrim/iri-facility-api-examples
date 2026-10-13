@@ -18,7 +18,7 @@ IRI_TOKEN_OLCF="" # OLCF S3M token
 OLCF_S3M_PROJECT="" # OLCF only, set to project id (e.g., abc123) used to create S3M token
 ```
 
-**Make sure you edit the `config_<facility>.py` files to set your exercises.** For ALCF, please add your ALCF username in `03_submit_job.py`.
+**Make sure you edit the `config_<facility>.py` files to set your exercises.** For ALCF, please add your ALCF username in `config_alcf.py`.
 
 
 ## 2. Get Your IRI Token
