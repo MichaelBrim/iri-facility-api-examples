@@ -11,10 +11,10 @@ TOKEN = os.environ.get("IRI_TOKEN_NERSC")
 # NERSC account (set here or in the environment/.env; the environment takes precedence)
 NERSC_USERNAME = ""
 NERSC_USERNAME = os.environ.get("NERSC_USERNAME", "").strip() or NERSC_USERNAME.strip()
-if not NERSC_USERNAME:
-    print("Error: Set NERSC_USERNAME in the environment, .env, or config_nersc.py.", file=sys.stderr)
-    sys.exit(1)
-HOME_PATH = f"/global/homes/{NERSC_USERNAME[0]}/{NERSC_USERNAME}"
+if NERSC_USERNAME:
+    HOME_PATH = f"/global/homes/{NERSC_USERNAME[0]}/{NERSC_USERNAME}"
+else:
+    HOME_PATH = None
 
 # Job submission resources
 COMPUTE_RESOURCE_ID = "94351904-6dba-4c16-b5cd-fbd280d8615b" # Perlmutter

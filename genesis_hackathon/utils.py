@@ -38,6 +38,7 @@ def get_config(facility: str) -> Config:
     elif facility == "nersc":
         import config_nersc as c
         _require(c.TOKEN, "IRI_TOKEN_NERSC")
+        _require(c.NERSC_USERNAME, "NERSC_USERNAME")
     elif facility == "esnet":
         import config_esnet as c
         _require(c.TOKEN, "AMSC_TOKEN (or AMSC_TOKEN_FILE)")
