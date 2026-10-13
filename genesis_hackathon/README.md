@@ -39,7 +39,8 @@ Print your IRI API token:
 alcf-tokens get-token iri
 ```
 
-Add your token in the IRI_TOKEN_ALCF variable in the `.env` file.
+Add your token in the `IRI_TOKEN_ALCF` variable in the `.env` file.
+Add your ALCF username in the `alcf_username` variable in the `config_alcf.py`.
 
 ### NERSC
 
