@@ -7,9 +7,10 @@ The DOE IRI APIs allow you to programmatically execute jobs on HPC systems, trig
 Use **Python 3.12 or newer**. The exercises use enum values as `argparse` choices,
 which require Python 3.12's enum membership behavior.
 
-From the `genesis_hackathon` directory, create an environment and install the dependencies:
+From the `genesis_hackathon` directory, run `python3 --version` and verify it
+reports Python 3.12 or newer. Then create an environment and install the dependencies:
 ```bash
-python3.12 -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
